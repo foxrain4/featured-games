@@ -33,23 +33,46 @@
   let currentGames = [...games];
 
   function renderGames() {
-    container.innerHTML = "";
-    currentGames.forEach(game => {
-      const div = document.createElement("div");
-      div.style.width = "180px";
-      div.style.textAlign = "center";
+  container.innerHTML = "";
+  currentGames.forEach(game => {
+    const div = document.createElement("div");
+    div.style.width = "180px";
+    div.style.textAlign = "center";
 
-      const imgName = game.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const imgName = game.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const exts = [".png", ".jpg", ".jpeg"];
+    let img = new Image();
+    let found = false;
 
+    (function tryNext(index) {
+      if (index >= exts.length) {
+        img.src = "https://via.placeholder.com/180x120?text=No+Image";
+        return;
+      }
+      const testSrc = `https://raw.githubusercontent.com/foxrain4/mazeofdragons/main/featured-games/${imgName}${exts[index]}`;
+      img.onload = () => {
+        img.src = testSrc;
+        found = true;
+        finish();
+      };
+      img.onerror = () => {
+        if (!found) tryNext(index + 1);
+      };
+      img.src = testSrc;
+    })(0);
+
+    function finish() {
       div.innerHTML = `
         <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
-          <img src="https://raw.githubusercontent.com/foxrain4/mazeofdragons/main/featured-games/${imgName}.png" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
+          <img src="${img.src}" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
           <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
         </a>
       `;
       container.appendChild(div);
-    });
-  }
+    }
+  });
+}
+
 
   function sortGames(mode) {
     if (mode === "new") {
