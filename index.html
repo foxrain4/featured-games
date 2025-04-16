@@ -1,7 +1,20 @@
+<div style="max-width: 900px; margin: auto; text-align: center;">
+  <h2 style="color: #5c7cfa; font-size: 28px;">🎮 Featured Games</h2>
+  <p style="font-style: italic; color: #888;">Games we just feel like revisiting. Shuffle and explore!</p>
+
+  <div style="margin: 20px 0;">
+    <button onclick="sortGames('new')" style="margin-right: 10px;">🆕 New</button>
+    <button onclick="sortGames('old')" style="margin-right: 10px;">📜 Old</button>
+    <button onclick="sortGames('shuffle')">🔀 Shuffle</button>
+  </div>
+
+  <div id="gameList" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;"></div>
+</div>
+
 <script>
   const games = [
-    { title: "Zombie Apoc Survival by Sylveon The Demon Slayer", url: "https://textadventures.co.uk/games/view/w0f80jxale64e606s4ad0g/zombie-apoc-survival" },
-    { title: "P.O.T.E.N.T. Simulator President of the Eagle Neo Territories", url: "https://textadventures.co.uk/games/view/xiog98nqseefu5brvccoza/p-o-t-e-n-t-simulator-president-of-the-eagle-neo-territories" },
+    { title: "Zombie Apoc Survival", url: "https://textadventures.co.uk/games/view/w0f80jxale64e606s4ad0g/zombie-apoc-survival" },
+    { title: "POTENT Simulator", url: "https://textadventures.co.uk/games/view/xiog98nqseefu5brvccoza/p-o-t-e-n-t-simulator-president-of-the-eagle-neo-territories" },
     { title: "Washed Ashore", url: "https://textadventures.co.uk/games/view/dgq2uwpxcu6iuqi-72jzcw/washed-ashore" },
     { title: "Masked Shadows", url: "https://textadventures.co.uk/games/view/xuioz9gfxumo_evcgn9ddg/masked-shadows" },
     { title: "Espigeonage Escape", url: "https://textadventures.co.uk/games/view/0sjqucerm0u5rosry-k2ag/espigeonage-escape" },
@@ -9,36 +22,49 @@
     { title: "Fantasy Life", url: "https://textadventures.co.uk/games/view/uxk1bcfnuealgow-0j7bgw/fantasy-life" },
     { title: "You Are Two Cats", url: "https://textadventures.co.uk/games/view/tbxsh2lqh0cr0n8kyecesw/you-are-two-cats" },
     { title: "The Bunker of Burrowout", url: "https://textadventures.co.uk/games/view/3xofc2aa10iiwkh_jvbdda/the-bunker-of-burrowout" },
-    { title: "Acroban: Darkness Across the Land", url: "https://textadventures.co.uk/games/view/4vk0qkalakiy0p7px3vkla/acroban-darkness-across-the-land" },
+    { title: "Acroban", url: "https://textadventures.co.uk/games/view/4vk0qkalakiy0p7px3vkla/acroban-darkness-across-the-land" },
     { title: "The Test is Now Ready", url: "https://textadventures.co.uk/games/view/tasncqqsuuyrmln94ojphg/the-test-is-now-ready" },
     { title: "To Hell in a Hamper", url: "https://textadventures.co.uk/games/view/szaztnsjcuircrt9qzig_q/to-hell-in-a-hamper" },
     { title: "XXI: The World", url: "https://textadventures.co.uk/games/view/3-ilnlp3n0gtigvpnzyuma/xxi-the-world" },
     { title: "221B Baker Street", url: "https://textadventures.co.uk/games/view/ntxgjz-ndkg97uled0gnpq/221b-baker-street" }
   ];
 
-  // Shuffle array
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+  const container = document.getElementById("gameList");
+  let currentGames = [...games];
+
+  function renderGames() {
+    container.innerHTML = "";
+    currentGames.forEach(game => {
+      const div = document.createElement("div");
+      div.style.width = "180px";
+      div.style.textAlign = "center";
+
+      const imgName = game.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+      div.innerHTML = `
+        <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
+          <img src="https://raw.githubusercontent.com/foxrain4/mazeofdragons/main/featured-games/${imgName}.png" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
+          <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
+        </a>
+      `;
+      container.appendChild(div);
+    });
   }
 
-  shuffle(games);
-</script>
+  function sortGames(mode) {
+    if (mode === "new") {
+      currentGames = [...games];
+    } else if (mode === "old") {
+      currentGames = [...games].reverse();
+    } else if (mode === "shuffle") {
+      currentGames = [...games];
+      for (let i = currentGames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentGames[i], currentGames[j]] = [currentGames[j], currentGames[i]];
+      }
+    }
+    renderGames();
+  }
 
-<div style="max-width: 800px; margin: auto; text-align: center;">
-  <h2 style="color: #5c7cfa; font-size: 28px;">🎮 Featured Games</h2>
-  <p style="font-style: italic; color: #888;">Games we just feel like revisiting. Shuffle and explore!</p>
-  <div id="gameList" style="margin-top: 20px;"></div>
-</div>
-
-<script>
-  const container = document.getElementById("gameList");
-  games.forEach(game => {
-    const item = document.createElement("div");
-    item.style.marginBottom = "12px";
-    item.innerHTML = `<a href="${game.url}" target="_blank" style="color: white; font-weight: bold; text-decoration: none;">${game.title}</a>`;
-    container.appendChild(item);
-  });
+  sortGames("new");
 </script>
