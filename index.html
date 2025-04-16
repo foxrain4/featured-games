@@ -13,20 +13,76 @@
 
 <script>
   const games = [
-    { title: "Zombie Apoc Survival", url: "https://textadventures.co.uk/games/view/w0f80jxale64e606s4ad0g/zombie-apoc-survival" },
-    { title: "POTENT Simulator", url: "https://textadventures.co.uk/games/view/xiog98nqseefu5brvccoza/p-o-t-e-n-t-simulator-president-of-the-eagle-neo-territories" },
-    { title: "Washed Ashore", url: "https://textadventures.co.uk/games/view/dgq2uwpxcu6iuqi-72jzcw/washed-ashore" },
-    { title: "Masked Shadows", url: "https://textadventures.co.uk/games/view/xuioz9gfxumo_evcgn9ddg/masked-shadows" },
-    { title: "Espigeonage Escape", url: "https://textadventures.co.uk/games/view/0sjqucerm0u5rosry-k2ag/espigeonage-escape" },
-    { title: "Professor Greene", url: "https://textadventures.co.uk/games/view/7xhhj4ex-eahycjnmdqpfw/professor-greene" },
-    { title: "Fantasy Life", url: "https://textadventures.co.uk/games/view/uxk1bcfnuealgow-0j7bgw/fantasy-life" },
-    { title: "You Are Two Cats", url: "https://textadventures.co.uk/games/view/tbxsh2lqh0cr0n8kyecesw/you-are-two-cats" },
-    { title: "The Bunker of Burrowout", url: "https://textadventures.co.uk/games/view/3xofc2aa10iiwkh_jvbdda/the-bunker-of-burrowout" },
-    { title: "Acroban", url: "https://textadventures.co.uk/games/view/4vk0qkalakiy0p7px3vkla/acroban-darkness-across-the-land" },
-    { title: "The Test is Now Ready", url: "https://textadventures.co.uk/games/view/tasncqqsuuyrmln94ojphg/the-test-is-now-ready" },
-    { title: "To Hell in a Hamper", url: "https://textadventures.co.uk/games/view/szaztnsjcuircrt9qzig_q/to-hell-in-a-hamper" },
-    { title: "XXI: The World", url: "https://textadventures.co.uk/games/view/3-ilnlp3n0gtigvpnzyuma/xxi-the-world" },
-    { title: "221B Baker Street", url: "https://textadventures.co.uk/games/view/ntxgjz-ndkg97uled0gnpq/221b-baker-street" }
+    {
+      title: "Zombie Apoc Survival",
+      url: "https://textadventures.co.uk/games/view/w0f80jxale64e606s4ad0g/zombie-apoc-survival",
+      image: "zombie-apoc-survival.png"
+    },
+    {
+      title: "POTENT Simulator",
+      url: "https://textadventures.co.uk/games/view/xiog98nqseefu5brvccoza/p-o-t-e-n-t-simulator-president-of-the-eagle-neo-territories",
+      image: "potent-simulator.jpg"
+    },
+    {
+      title: "Washed Ashore",
+      url: "https://textadventures.co.uk/games/view/dgq2uwpxcu6iuqi-72jzcw/washed-ashore",
+      image: "washed-ashore.jpeg"
+    },
+    {
+      title: "Masked Shadows",
+      url: "https://textadventures.co.uk/games/view/xuioz9gfxumo_evcgn9ddg/masked-shadows",
+      image: "masked-shadows.png"
+    },
+    {
+      title: "Espigeonage Escape",
+      url: "https://textadventures.co.uk/games/view/0sjqucerm0u5rosry-k2ag/espigeonage-escape",
+      image: "espigeonage-escape.jpg"
+    },
+    {
+      title: "Professor Greene",
+      url: "https://textadventures.co.uk/games/view/7xhhj4ex-eahycjnmdqpfw/professor-greene",
+      image: "professor-greene.png"
+    },
+    {
+      title: "Fantasy Life",
+      url: "https://textadventures.co.uk/games/view/uxk1bcfnuealgow-0j7bgw/fantasy-life",
+      image: "fantasy-life.png"
+    },
+    {
+      title: "You Are Two Cats",
+      url: "https://textadventures.co.uk/games/view/tbxsh2lqh0cr0n8kyecesw/you-are-two-cats",
+      image: "you-are-two-cats.jpg"
+    },
+    {
+      title: "The Bunker of Burrowout",
+      url: "https://textadventures.co.uk/games/view/3xofc2aa10iiwkh_jvbdda/the-bunker-of-burrowout",
+      image: "the-bunker-of-burrowout.jpeg"
+    },
+    {
+      title: "Acroban",
+      url: "https://textadventures.co.uk/games/view/4vk0qkalakiy0p7px3vkla/acroban-darkness-across-the-land",
+      image: "acroban.jpg"
+    },
+    {
+      title: "The Test is Now Ready",
+      url: "https://textadventures.co.uk/games/view/tasncqqsuuyrmln94ojphg/the-test-is-now-ready",
+      image: "the-test-is-now-ready.jpg"
+    },
+    {
+      title: "To Hell in a Hamper",
+      url: "https://textadventures.co.uk/games/view/szaztnsjcuircrt9qzig_q/to-hell-in-a-hamper",
+      image: "to-hell-in-a-hamper.jpg"
+    },
+    {
+      title: "XXI: The World",
+      url: "https://textadventures.co.uk/games/view/3-ilnlp3n0gtigvpnzyuma/xxi-the-world",
+      image: "xxi-the-world.jpg"
+    },
+    {
+      title: "221B Baker Street",
+      url: "https://textadventures.co.uk/games/view/ntxgjz-ndkg97uled0gnpq/221b-baker-street",
+      image: "221b-baker-street.png"
+    }
   ];
 
   const container = document.getElementById("gameList");
@@ -39,34 +95,16 @@
       div.style.width = "180px";
       div.style.textAlign = "center";
 
-      const imgName = game.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-      const exts = [".png", ".jpg", ".jpeg"];
-      let img = new Image();
+      const imgSrc = `https://raw.githubusercontent.com/foxrain4/featured-games/main/${game.image}`;
 
-      function tryExt(index) {
-  if (index >= exts.length) {
-    finish("https://via.placeholder.com/180x120?text=No+Image");
-    return;
-  }
-  const testSrc = `https://raw.githubusercontent.com/foxrain4/featured-games/main/${imgName}${exts[index]}`;
-  const testImg = new Image();
-  testImg.onload = () => finish(testSrc);
-  testImg.onerror = () => tryExt(index + 1);
-  testImg.src = testSrc;
-}
+      div.innerHTML = `
+        <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
+          <img src="${imgSrc}" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
+          <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
+        </a>
+      `;
 
-function finish(src) {
-  div.innerHTML = `
-    <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
-      <img src="${src}" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
-      <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
-    </a>
-  `;
-  container.appendChild(div);
-}
-
-
-      tryExt(0);
+      container.appendChild(div);
     });
   }
 
