@@ -44,29 +44,27 @@
       let img = new Image();
 
       function tryExt(index) {
-        if (index >= exts.length) {
-          img.src = "https://via.placeholder.com/180x120?text=No+Image";
-          finish();
-          return;
-        }
-        const testSrc = `https://raw.githubusercontent.com/foxrain4/featured-games/main/${imgName}${exts[index]}`;
-        img.onload = () => {
-          img.src = testSrc;
-          finish();
-        };
-        img.onerror = () => tryExt(index + 1);
-        img.src = testSrc;
-      }
+  if (index >= exts.length) {
+    finish("https://via.placeholder.com/180x120?text=No+Image");
+    return;
+  }
+  const testSrc = `https://raw.githubusercontent.com/foxrain4/featured-games/main/${imgName}${exts[index]}`;
+  const testImg = new Image();
+  testImg.onload = () => finish(testSrc);
+  testImg.onerror = () => tryExt(index + 1);
+  testImg.src = testSrc;
+}
 
-      function finish() {
-        div.innerHTML = `
-          <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
-            <img src="${img.src}" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
-            <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
-          </a>
-        `;
-        container.appendChild(div);
-      }
+function finish(src) {
+  div.innerHTML = `
+    <a href="${game.url}" target="_blank" style="text-decoration: none; color: white;">
+      <img src="${src}" style="width: 100%; border-radius: 12px; box-shadow: 0 0 10px #0005;">
+      <div style="margin-top: 6px; font-weight: bold; font-size: 14px;">${game.title}</div>
+    </a>
+  `;
+  container.appendChild(div);
+}
+
 
       tryExt(0);
     });
